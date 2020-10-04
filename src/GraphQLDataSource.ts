@@ -31,6 +31,7 @@ export class GraphQLDataSource<TContext = any> {
     const uri = this.resolveUri();
 
     return ApolloLink.from([
+      this.onErrorLink(),
       this.onRequestLink(),
       createHttpLink({ fetch, uri }),
     ]);
@@ -38,7 +39,7 @@ export class GraphQLDataSource<TContext = any> {
 
   private didEncounterError(error: any) {
     const status = error.statusCode ? error.statusCode : null;
-    let message = null;
+    let message = '';
 
     if (error.bodyText) {
       message = error.bodyText;
@@ -98,18 +99,7 @@ export class GraphQLDataSource<TContext = any> {
   }
 
   private onErrorLink() {
-    return onError(({ graphQLErrors, networkError }) => {
-      if (graphQLErrors) {
-        graphQLErrors.map(graphqlError =>
-          console.error(
-            `[GraphQL error]: ${graphqlError.message}`,
-          ),
-        );
-      }
-
-      if (networkError) {
-        console.log(`[Network Error]: ${networkError}`);
-      }
-    });
+    // Do nothing for now
+    return onError(({}) => {});
   }
 }

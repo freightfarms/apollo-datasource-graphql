@@ -9,7 +9,8 @@
     "outDir": "dist",
     "sourceMap": false,
     "target": "esnext",
-    "strict": true
+    "strict": true,
+    "noImplicitAny": false
   },
   "include": [
     "src/**/*"
