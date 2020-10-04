@@ -16,6 +16,7 @@
     "build": "rm -rf dist/ && tsc",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "prepublishOnly": "yarn build",
+    "prepare": "yarn build",
     "start": "ts-node src/index.ts"
   },
   "keywords": [
