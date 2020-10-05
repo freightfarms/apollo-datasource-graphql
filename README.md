@@ -1,5 +1,9 @@
 # apollo-datasource-graphql
 
+Forked from https://www.npmjs.com/package/apollo-datasource-graphql with below changes:
+- Fix error messages
+- Add timeout
+
 Connect your GraphQL server to an existing GraphQL API using DataSources.
 
 **Note: This is designed to work with  [Apollo Server 2.0](https://www.apollographql.com/docs/apollo-server/whats-new.html) and [Data Sources](https://www.apollographql.com/docs/apollo-server/features/data-sources.html)**
@@ -101,7 +105,7 @@ Add the method `willSendRequest` to your class which will receive the `request` 
     if (!request.headers) {
       request.headers = {};
     }
-    
+
     request.headers.authorization = accessToken;
   }
 ```
