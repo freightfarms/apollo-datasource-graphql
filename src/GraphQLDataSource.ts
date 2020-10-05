@@ -37,8 +37,8 @@ export class GraphQLDataSource<TContext = any> {
     return ApolloLink.from([
       this.onErrorLink(),
       this.onRequestLink(),
-      httpLink,
       timeoutLink,
+      httpLink,
     ]);
   }
 
@@ -63,6 +63,9 @@ export class GraphQLDataSource<TContext = any> {
         break;
       case 502:
         apolloError = new ApolloError('Bad Gateway', status);
+        break;
+      case 408:
+        apolloError = new apollo_server_errors_1.ApolloError('Request timeout', status);
         break;
       default:
         apolloError = new ApolloError(message, status);
