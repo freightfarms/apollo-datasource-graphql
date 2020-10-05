@@ -65,7 +65,7 @@ export class GraphQLDataSource<TContext = any> {
         apolloError = new ApolloError('Bad Gateway', status);
         break;
       case 408:
-        apolloError = new apollo_server_errors_1.ApolloError('Request timeout', status);
+        apolloError = new ApolloError('Request timeout', status);
         break;
       default:
         apolloError = new ApolloError(message, status);
