@@ -3,6 +3,7 @@ import { ApolloLink, execute, GraphQLRequest, makePromise } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
 import { onError } from 'apollo-link-error';
 import { createHttpLink } from 'apollo-link-http';
+import ApolloLinkTimeout from 'apollo-link-timeout';
 import { ApolloError, AuthenticationError, ForbiddenError } from 'apollo-server-errors';
 import to from 'await-to-js';
 import { DocumentNode } from 'graphql';
@@ -30,10 +31,14 @@ export class GraphQLDataSource<TContext = any> {
   private composeLinks(): ApolloLink {
     const uri = this.resolveUri();
 
+    const timeoutLink = new ApolloLinkTimeout(15000); // 15 seconds timeout
+    const httpLink = createHttpLink({ fetch, uri });
+
     return ApolloLink.from([
       this.onErrorLink(),
       this.onRequestLink(),
-      createHttpLink({ fetch, uri }),
+      httpLink,
+      timeoutLink,
     ]);
   }
 
